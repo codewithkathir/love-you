@@ -5,394 +5,437 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Kathiravan ❤️ Sathiya Priya</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --rose:#f43f5e;--blush:#fda4af;--plum:#a855f7;--deep:#0d0010;
+  --gold:#fbbf24;--mint:#34d399;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100vh;overflow:hidden;background:var(--deep);font-family:'DM Sans',sans-serif;cursor:none}
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
-  background: #0d0010;
-}
+/* Custom cursor */
+#cursor{position:fixed;width:12px;height:12px;background:var(--rose);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,width .2s,height .2s,opacity .2s;box-shadow:0 0 12px rgba(244,63,94,.8)}
+#cursor-trail{position:fixed;width:28px;height:28px;border:1px solid rgba(244,63,94,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .12s ease,top .12s ease}
 
-/* ── Aurora blobs ── */
-.aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.aurora-blob {
-  position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.55;
-  animation: blobDrift ease-in-out infinite alternate;
-}
-@keyframes blobDrift {
-  0%   { transform: translate(0,0) scale(1); }
-  100% { transform: translate(var(--dx),var(--dy)) scale(var(--ds)); }
-}
+/* Aurora */
+.aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.aurora-blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;animation:blobDrift ease-in-out infinite alternate}
+@keyframes blobDrift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(var(--dx),var(--dy)) scale(var(--ds))}}
 
-/* ── Stars ── */
-.stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-.star {
-  position: absolute; background: #fff; border-radius: 50%;
-  animation: twinkle ease-in-out infinite alternate;
-}
-@keyframes twinkle {
-  0%   { opacity: 0.1; transform: scale(0.8); }
-  100% { opacity: 0.9; transform: scale(1.2); }
-}
+/* Stars */
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle ease-in-out infinite alternate}
+@keyframes twinkle{0%{opacity:.05;transform:scale(.7)}100%{opacity:.8;transform:scale(1.3)}}
 
-/* ── Floating hearts ── */
-.heart-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
-.heart-particle {
-  position: absolute; bottom: -60px; opacity: 0;
-  animation: floatHeart linear infinite;
-  filter: drop-shadow(0 0 8px rgba(244,63,94,0.7));
-  user-select: none;
-}
-@keyframes floatHeart {
-  0%   { transform: translateY(0) rotate(-15deg) scale(0.7); opacity: 0; }
-  8%   { opacity: 0.8; }
-  85%  { opacity: 0.3; }
-  100% { transform: translateY(-115vh) rotate(25deg) scale(1.3); opacity: 0; }
-}
+/* Floating hearts */
+.heart-bg{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.heart-p{position:absolute;bottom:-60px;opacity:0;pointer-events:none;user-select:none;animation:floatUp linear infinite}
+@keyframes floatUp{0%{transform:translateY(0) rotate(-15deg) scale(.7);opacity:0}8%{opacity:.7}88%{opacity:.3}100%{transform:translateY(-115vh) rotate(25deg) scale(1.3);opacity:0}}
 
-/* ── Spinning deco rings ── */
-.deco-ring {
-  position: fixed; border-radius: 50%;
-  border: 1px solid rgba(244,63,94,0.12);
-  pointer-events: none; z-index: 0;
-  animation: decoSpin linear infinite;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-}
-@keyframes decoSpin {
-  from { transform: translate(-50%,-50%) rotate(0deg); }
-  to   { transform: translate(-50%,-50%) rotate(360deg); }
-}
+/* Deco rings */
+.deco-ring{position:fixed;border-radius:50%;border:1px solid rgba(244,63,94,.1);pointer-events:none;z-index:0;top:50%;left:50%;animation:decoSpin linear infinite}
+@keyframes decoSpin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
 
-/* ── Card ── */
-.card {
-  position: relative;
-  background: linear-gradient(160deg, rgba(255,255,255,0.09) 0%, rgba(180,60,120,0.07) 50%, rgba(100,20,160,0.09) 100%);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
-  border-radius: 2.5rem;
-  border: 1px solid rgba(255,255,255,0.13);
-  box-shadow: 0 0 0 1px rgba(244,63,94,0.08), 0 40px 100px rgba(0,0,0,0.6),
-              0 0 60px rgba(168,85,247,0.12), inset 0 1px 0 rgba(255,255,255,0.18);
-  overflow: visible;
-}
-.card::before {
-  content: ''; position: absolute; inset: -1px; border-radius: inherit;
-  background: linear-gradient(135deg, rgba(244,63,94,0.3), rgba(168,85,247,0.2), rgba(244,63,94,0.15));
-  z-index: -1; filter: blur(8px); opacity: 0.5;
-}
-.card-strip {
-  position: absolute; top: 0; left: 10%; right: 10%; height: 2px;
-  background: linear-gradient(90deg, transparent, #f43f5e, #c084fc, #f43f5e, transparent);
-  border-radius: 9999px;
-}
-.corner-dot {
-  position: absolute; width: 6px; height: 6px; border-radius: 50%;
-  background: rgba(244,63,94,0.7); box-shadow: 0 0 8px rgba(244,63,94,0.9);
-}
+/* ══ SLIDE SYSTEM ══ */
+#slideWrap{position:fixed;inset:0;z-index:10}
+.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .6s ease,transform .6s cubic-bezier(.4,0,.2,1)}
+.slide.active{opacity:1;pointer-events:all;transform:translateY(0)!important}
+.slide.exit-up{transform:translateY(-60px)!important;opacity:0!important}
+.slide.enter-down{transform:translateY(60px)}
 
-/* ── Initials ring ── */
-.initials-ring {
-  width: 84px; height: 84px; border-radius: 50%;
-  background: linear-gradient(135deg, #f43f5e, #a855f7);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.7rem; font-weight: 700; color: #fff; margin: 0 auto;
-  animation: ringGlow 3s ease-in-out infinite alternate;
-}
-@keyframes ringGlow {
-  0%   { box-shadow: 0 0 0 3px rgba(244,63,94,0.3), 0 0 24px rgba(244,63,94,0.5); }
-  100% { box-shadow: 0 0 0 5px rgba(168,85,247,0.4), 0 0 44px rgba(168,85,247,0.6); }
-}
+/* Progress dots */
+#progress{position:fixed;bottom:1.8rem;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:20}
+.prog-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+.prog-dot.done{background:var(--rose);box-shadow:0 0 8px rgba(244,63,94,.6)}
+.prog-dot.active{background:var(--blush);width:24px;border-radius:9999px;box-shadow:0 0 12px rgba(253,164,175,.7)}
 
-/* ── Title ── */
-.title {
-  font-family: 'Cormorant Garamond', serif; font-weight: 700; line-height: 1.1;
-  background: linear-gradient(135deg, #fda4af 0%, #f43f5e 30%, #e879f9 60%, #fda4af 100%);
-  background-size: 300% auto;
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  animation: shimmer 5s linear infinite;
+/* ══ CARD BASE ══ */
+.card{
+  position:relative;width:100%;max-width:460px;
+  background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(180,60,120,.06),rgba(100,20,160,.08));
+  backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);
+  border-radius:2.5rem;border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 0 1px rgba(244,63,94,.07),0 40px 100px rgba(0,0,0,.6),0 0 80px rgba(168,85,247,.1),inset 0 1px 0 rgba(255,255,255,.16);
+  overflow:visible;padding:2.5rem 2rem;text-align:center
 }
-@keyframes shimmer {
-  0%   { background-position: 0% center; }
-  100% { background-position: 300% center; }
-}
+.card::before{content:'';position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(135deg,rgba(244,63,94,.25),rgba(168,85,247,.15),rgba(244,63,94,.1));z-index:-1;filter:blur(8px);opacity:.6}
+.card-strip{position:absolute;top:0;left:12%;right:12%;height:2px;background:linear-gradient(90deg,transparent,var(--rose),var(--plum),var(--rose),transparent);border-radius:9999px}
+.cdot{position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(244,63,94,.7);box-shadow:0 0 8px rgba(244,63,94,.9)}
 
-.subtitle {
-  font-family: 'Cormorant Garamond', serif; font-style: italic;
-  font-size: 1.3rem; color: rgba(253,164,175,0.88); letter-spacing: 0.03em;
-}
+/* ══ TYPOGRAPHY ══ */
+.title-grad{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.1;background:linear-gradient(135deg,#fda4af 0%,#f43f5e 30%,#e879f9 60%,#fda4af 100%);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 5s linear infinite}
+@keyframes shimmer{0%{background-position:0% center}100%{background-position:300% center}}
+.subtitle-text{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(253,164,175,.85);letter-spacing:.03em}
+.hint{font-size:.73rem;color:rgba(255,255,255,.28);letter-spacing:.07em;text-transform:uppercase}
 
-/* ── Divider ── */
-.divider { display: flex; align-items: center; gap: 10px; }
-.divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(244,63,94,0.5), transparent); }
-.divider-diamond {
-  width: 6px; height: 6px; background: #f43f5e;
-  transform: rotate(45deg); box-shadow: 0 0 8px rgba(244,63,94,0.8);
-}
+/* ══ DIVIDER ══ */
+.divider{display:flex;align-items:center;gap:10px;margin:1rem 0}
+.dl{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(244,63,94,.45),transparent)}
+.dd{width:6px;height:6px;background:var(--rose);transform:rotate(45deg);box-shadow:0 0 8px rgba(244,63,94,.8)}
+.ddp{background:var(--plum);box-shadow:0 0 8px rgba(168,85,247,.9)}
 
-/* ── YES button ── */
-.btn-yes {
-  width: 100%; padding: 1.1rem 1.5rem;
-  font-family: 'DM Sans', sans-serif; font-size: 1.05rem;
-  font-weight: 600; letter-spacing: 0.05em; color: #fff;
-  border: none; border-radius: 9999px; cursor: pointer;
-  position: relative; overflow: hidden;
-  background: linear-gradient(135deg, #ff6b8a 0%, #f43f5e 40%, #dc2626 70%, #be185d 100%);
-  box-shadow: 0 8px 32px rgba(244,63,94,0.5), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
-  transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease;
-  animation: yesPulse 3s ease-in-out infinite;
-}
-@keyframes yesPulse {
-  0%, 100% { box-shadow: 0 8px 32px rgba(244,63,94,0.5), inset 0 1px 0 rgba(255,255,255,0.3); }
-  50%       { box-shadow: 0 14px 44px rgba(244,63,94,0.75), inset 0 1px 0 rgba(255,255,255,0.3); }
-}
-.btn-yes::before {
-  content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
-  transform: skewX(-20deg); animation: shine 3s ease-in-out infinite;
-}
-@keyframes shine { 0% { left: -100%; } 40% { left: 150%; } 100% { left: 150%; } }
-.btn-yes:hover {
-  transform: scale(1.06) translateY(-3px);
-  box-shadow: 0 20px 50px rgba(244,63,94,0.7), inset 0 1px 0 rgba(255,255,255,0.3);
-  animation: none;
-}
-.btn-yes:active { transform: scale(0.97); }
+/* ══ BUTTONS ══ */
+.btn-primary{display:block;width:100%;padding:1rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;letter-spacing:.04em;color:#fff;border:none;border-radius:9999px;cursor:pointer;position:relative;overflow:hidden;background:linear-gradient(135deg,#ff6b8a,#f43f5e,#dc2626,#be185d);box-shadow:0 8px 32px rgba(244,63,94,.5),inset 0 1px 0 rgba(255,255,255,.3);transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;animation:yesPulse 3s ease-in-out infinite;margin-bottom:.75rem}
+.btn-primary::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:skewX(-20deg);animation:shine 3s ease-in-out infinite}
+@keyframes shine{0%{left:-100%}40%{left:150%}100%{left:150%}}
+@keyframes yesPulse{0%,100%{box-shadow:0 8px 32px rgba(244,63,94,.5),inset 0 1px 0 rgba(255,255,255,.3)}50%{box-shadow:0 14px 44px rgba(244,63,94,.75),inset 0 1px 0 rgba(255,255,255,.3)}}
+.btn-primary:hover{transform:scale(1.05) translateY(-2px);animation:none;box-shadow:0 18px 48px rgba(244,63,94,.7),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn-primary:active{transform:scale(.97)}
 
-/* ── NO button (fixed, escapes via JS) ── */
-.btn-no {
-  position: fixed;
-  font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
-  letter-spacing: 0.04em; color: rgba(255,255,255,0.55);
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.18); border-radius: 9999px;
-  padding: 0.9rem 1.6rem; white-space: nowrap;
-  pointer-events: none; /* JS handles proximity via mousemove */
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-  transition: left 0.22s cubic-bezier(.34,1.56,.64,1), top 0.22s cubic-bezier(.34,1.56,.64,1);
-  z-index: 50; user-select: none; cursor: default;
-}
+.btn-secondary{display:block;width:100%;padding:.85rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;letter-spacing:.04em;color:rgba(253,164,175,.75);border:1px solid rgba(253,164,175,.22);border-radius:9999px;background:rgba(255,255,255,.04);cursor:pointer;transition:all .2s ease;margin-bottom:.75rem}
+.btn-secondary:hover{background:rgba(244,63,94,.1);border-color:rgba(244,63,94,.4);color:#fda4af;transform:translateY(-1px)}
 
-/* ── Share button ── */
-.btn-share {
-  width: 100%; padding: 0.8rem 1rem;
-  font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
-  letter-spacing: 0.05em; color: rgba(253,164,175,0.75);
-  background: transparent; border: 1px solid rgba(253,164,175,0.2);
-  border-radius: 9999px; cursor: pointer;
-  transition: all 0.2s ease;
-}
-.btn-share:hover {
-  background: rgba(244,63,94,0.12); border-color: rgba(244,63,94,0.4);
-  color: #fda4af; transform: translateY(-1px);
-}
+.btn-choice{display:block;width:100%;padding:.9rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.14);border-radius:1rem;background:rgba(255,255,255,.05);cursor:pointer;transition:all .25s cubic-bezier(.34,1.56,.64,1);margin-bottom:.65rem;text-align:left;position:relative;overflow:hidden}
+.btn-choice::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(244,63,94,.15),rgba(168,85,247,.1));opacity:0;transition:opacity .2s}
+.btn-choice:hover{border-color:rgba(244,63,94,.5);color:#fff;transform:scale(1.02) translateX(4px)}
+.btn-choice:hover::before{opacity:1}
+.btn-choice.selected{border-color:var(--rose);background:rgba(244,63,94,.18);color:#fff;box-shadow:0 0 20px rgba(244,63,94,.3)}
+.btn-choice.selected::before{opacity:1}
 
-/* ── Heartbeat ── */
-.heartbeat { animation: heartbeat 1.4s ease-in-out infinite; display: inline-block; }
-@keyframes heartbeat {
-  0%,100% { transform: scale(1); }
-  14% { transform: scale(1.35); }
-  28% { transform: scale(1); }
-  42% { transform: scale(1.2); }
-  70% { transform: scale(1); }
-}
+/* ══ NO BUTTON (fixed, escapes proximity) ══ */
+.btn-no{position:fixed;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:500;letter-spacing:.04em;color:rgba(255,255,255,.5);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:9999px;padding:.85rem 1.6rem;white-space:nowrap;pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.25);z-index:9997;user-select:none;cursor:default}
 
-/* ── noZone: the invisible placeholder inside card ── */
-#noZone {
-  width: 100%; height: 60px; margin-top: 12px; position: relative;
-  display: flex; align-items: center; justify-content: center;
-}
-/* Ghost outline so user sees where it "should" be */
-#noZone::after {
-  content: 'Try to catch me... 😏';
-  display: flex; align-items: center; justify-content: center;
-  position: absolute; inset: 0;
-  border: 1px dashed rgba(255,255,255,0.1);
-  border-radius: 9999px;
-  color: rgba(255,255,255,0.12);
-  font-size: 0.78rem; letter-spacing: 0.06em;
-  font-family: 'DM Sans', sans-serif;
-  pointer-events: none;
-}
+/* ══ INITIALS ══ */
+.initials-ring{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#f43f5e,#a855f7);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#fff;margin:0 auto;animation:ringGlow 3s ease-in-out infinite alternate}
+@keyframes ringGlow{0%{box-shadow:0 0 0 3px rgba(244,63,94,.3),0 0 24px rgba(244,63,94,.5)}100%{box-shadow:0 0 0 5px rgba(168,85,247,.4),0 0 44px rgba(168,85,247,.6)}}
 
-/* ── Success overlay ── */
-.success-overlay {
-  position: fixed; inset: 0; z-index: 200;
-  display: flex; align-items: center; justify-content: center; flex-direction: column;
-  padding: 2rem; opacity: 0; pointer-events: none;
-  transition: opacity 0.5s ease;
-  background: radial-gradient(ellipse at center, rgba(80,0,60,0.98) 0%, rgba(10,0,20,0.99) 100%);
-}
-.success-overlay.visible { opacity: 1; pointer-events: all; }
-.success-card {
-  background: rgba(255,255,255,0.06); backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.12); border-radius: 2rem;
-  padding: 3rem 2.5rem; text-align: center; max-width: 480px; width: 100%;
-  position: relative;
-  box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
-}
-.success-title {
-  font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,6vw,3rem); font-weight: 700;
-  background: linear-gradient(135deg, #fda4af, #f43f5e, #c084fc);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-@keyframes popIn {
-  0%   { transform: scale(0.3) rotate(-10deg); opacity: 0; }
-  70%  { transform: scale(1.1) rotate(3deg); }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; }
-}
-.pop-in { animation: popIn 0.6s cubic-bezier(.34,1.56,.64,1) both; }
+/* ══ HEARTBEAT ══ */
+.hb{animation:hb 1.4s ease-in-out infinite;display:inline-block}
+@keyframes hb{0%,100%{transform:scale(1)}14%{transform:scale(1.35)}28%{transform:scale(1)}42%{transform:scale(1.2)}70%{transform:scale(1)}}
 
-/* ── Confetti ── */
-.confetti-piece {
-  position: fixed; top: -20px;
-  animation: confettiFall linear forwards; z-index: 300; border-radius: 2px;
-}
-@keyframes confettiFall {
-  0%   { transform: translateY(0) rotate(0deg) scaleX(1); opacity: 1; }
-  50%  { transform: translateY(50vh) rotate(360deg) scaleX(-1); }
-  100% { transform: translateY(110vh) rotate(720deg) scaleX(1); opacity: 0; }
-}
+/* ══ EMOJI BIG ══ */
+.emoji-big{font-size:3.5rem;display:block;margin:0 auto .8rem;animation:popIn .6s cubic-bezier(.34,1.56,.64,1) both}
 
-/* ── Sparkle ── */
-.sparkle {
-  position: fixed; pointer-events: none; z-index: 5;
-  font-size: 1rem; animation: sparkleAnim 0.9s ease-out forwards;
-}
-@keyframes sparkleAnim {
-  0%   { transform: scale(0) translateY(0); opacity: 1; }
-  100% { transform: scale(1.4) translateY(-38px); opacity: 0; }
-}
+/* ══ INPUT ══ */
+.love-input{width:100%;padding:.85rem 1.2rem;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:1rem;outline:none;transition:border-color .2s,box-shadow .2s;text-align:center}
+.love-input::placeholder{color:rgba(255,255,255,.3)}
+.love-input:focus{border-color:var(--rose);box-shadow:0 0 24px rgba(244,63,94,.25)}
 
-/* ── Toast ── */
-.toast {
-  position: fixed; bottom: 2rem; left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: rgba(20,5,25,0.95); border: 1px solid rgba(244,63,94,0.35);
-  color: #fda4af; padding: 0.7rem 1.6rem; border-radius: 9999px;
-  font-size: 0.88rem; z-index: 400; backdrop-filter: blur(16px);
-  transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), opacity 0.4s;
-  opacity: 0; white-space: nowrap; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-}
-.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+/* ══ PROGRESS BAR ══ */
+#topBar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--rose),var(--plum));z-index:30;transition:width .5s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px rgba(244,63,94,.7)}
+
+/* ══ SUCCESS OVERLAY ══ */
+.success-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:2rem;opacity:0;pointer-events:none;transition:opacity .6s ease;background:radial-gradient(ellipse at center,rgba(80,0,60,.98),rgba(10,0,20,.99))}
+.success-overlay.visible{opacity:1;pointer-events:all}
+.success-card{background:rgba(255,255,255,.07);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.12);border-radius:2rem;padding:2.5rem 2rem;text-align:center;max-width:480px;width:100%;position:relative;box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.15)}
+
+/* ══ ANIMATIONS ══ */
+@keyframes popIn{0%{transform:scale(.3) rotate(-10deg);opacity:0}70%{transform:scale(1.1) rotate(3deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}
+.pop-in{animation:popIn .6s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.slide-up{animation:slideUp .5s ease both}
+
+/* ══ CONFETTI / SPARKLE ══ */
+.confetti-piece{position:fixed;top:-20px;animation:confettiFall linear forwards;z-index:300;border-radius:2px}
+@keyframes confettiFall{0%{opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+.sparkle{position:fixed;pointer-events:none;z-index:10;font-size:1rem;animation:sparkleAnim .9s ease-out forwards}
+@keyframes sparkleAnim{0%{transform:scale(0) translateY(0);opacity:1}100%{transform:scale(1.5) translateY(-40px);opacity:0}}
+
+/* ══ TOAST ══ */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(20,5,25,.95);border:1px solid rgba(244,63,94,.35);color:#fda4af;padding:.7rem 1.6rem;border-radius:9999px;font-size:.88rem;z-index:400;backdrop-filter:blur(16px);transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .4s;opacity:0;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* ══ BACK BUTTON ══ */
+#backBtn{position:fixed;top:1.4rem;left:1.4rem;z-index:25;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);padding:.45rem .9rem;border-radius:9999px;font-size:.78rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;letter-spacing:.04em;display:none}
+#backBtn:hover{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7)}
+
+/* slide counter */
+#slideCounter{position:fixed;top:1.4rem;right:1.4rem;z-index:25;font-size:.72rem;color:rgba(255,255,255,.25);letter-spacing:.08em;font-family:'DM Sans',sans-serif}
+
+/* ghost zone for NO */
+#noZone{width:100%;height:56px;position:relative;display:flex;align-items:center;justify-content:center;margin-top:.6rem}
+#noZone::after{content:'Try to catch me... 😏';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(255,255,255,.1);border-radius:9999px;color:rgba(255,255,255,.14);font-size:.76rem;letter-spacing:.06em;font-family:'DM Sans',sans-serif;pointer-events:none}
+
+/* memory lane items */
+.memory-item{display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;border-radius:1rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);margin-bottom:.6rem;text-align:left;animation:slideUp .5s ease both}
+.memory-icon{font-size:1.5rem;flex-shrink:0}
+.memory-text{font-size:.85rem;color:rgba(255,255,255,.65);line-height:1.4}
+
+/* rating stars */
+.star-row{display:flex;justify-content:center;gap:.4rem;font-size:2rem;margin:1rem 0}
+.star-btn{cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1);filter:grayscale(1) opacity(.4)}
+.star-btn.lit{filter:none;transform:scale(1.2)}
+.star-btn:hover{transform:scale(1.3)}
+
+/* scroll snap slide container for mobile feel */
+@media(max-width:480px){.card{padding:2rem 1.4rem;border-radius:2rem}}
 </style>
 </head>
 <body>
 
+<!-- Cursor -->
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- Top progress bar -->
+<div id="topBar" style="width:9.09%"></div>
+
+<!-- Back button -->
+<button id="backBtn" onclick="goBack()">← Back</button>
+
+<!-- Slide counter -->
+<div id="slideCounter">1 / 11</div>
+
 <!-- Aurora -->
 <div class="aurora">
-  <div class="aurora-blob" style="width:650px;height:650px;background:radial-gradient(circle,rgba(220,40,100,0.7),transparent 70%);top:-180px;left:-180px;--dx:70px;--dy:90px;--ds:1.15;animation-duration:10s;"></div>
-  <div class="aurora-blob" style="width:550px;height:550px;background:radial-gradient(circle,rgba(140,40,220,0.6),transparent 70%);bottom:-120px;right:-120px;--dx:-80px;--dy:-60px;--ds:1.2;animation-duration:13s;"></div>
-  <div class="aurora-blob" style="width:400px;height:400px;background:radial-gradient(circle,rgba(255,80,140,0.4),transparent 70%);top:40%;left:50%;--dx:50px;--dy:30px;--ds:0.9;animation-duration:8s;"></div>
-  <div class="aurora-blob" style="width:380px;height:380px;background:radial-gradient(circle,rgba(80,0,170,0.5),transparent 70%);top:10%;right:8%;--dx:-40px;--dy:60px;--ds:1.1;animation-duration:11s;"></div>
+  <div class="aurora-blob" style="width:650px;height:650px;background:radial-gradient(circle,rgba(220,40,100,.7),transparent 70%);top:-180px;left:-180px;--dx:70px;--dy:90px;--ds:1.15;animation-duration:10s"></div>
+  <div class="aurora-blob" style="width:550px;height:550px;background:radial-gradient(circle,rgba(140,40,220,.6),transparent 70%);bottom:-120px;right:-120px;--dx:-80px;--dy:-60px;--ds:1.2;animation-duration:13s"></div>
+  <div class="aurora-blob" style="width:400px;height:400px;background:radial-gradient(circle,rgba(255,80,140,.4),transparent 70%);top:35%;left:45%;--dx:50px;--dy:30px;--ds:.9;animation-duration:8s"></div>
+  <div class="aurora-blob" style="width:380px;height:380px;background:radial-gradient(circle,rgba(80,0,170,.5),transparent 70%);top:8%;right:6%;--dx:-40px;--dy:60px;--ds:1.1;animation-duration:11s"></div>
 </div>
 
 <!-- Stars -->
 <div class="stars" id="stars"></div>
-
 <!-- Floating hearts -->
 <div class="heart-bg" id="heartBg"></div>
-
 <!-- Deco rings -->
-<div class="deco-ring" style="width:720px;height:720px;animation-duration:44s;"></div>
-<div class="deco-ring" style="width:520px;height:520px;border-color:rgba(168,85,247,0.1);animation-duration:32s;animation-direction:reverse;"></div>
-<div class="deco-ring" style="width:330px;height:330px;border-color:rgba(244,63,94,0.15);animation-duration:22s;"></div>
+<div class="deco-ring" style="width:700px;height:700px;animation-duration:44s"></div>
+<div class="deco-ring" style="width:500px;height:500px;border-color:rgba(168,85,247,.09);animation-duration:32s;animation-direction:reverse"></div>
+<div class="deco-ring" style="width:310px;height:310px;border-color:rgba(244,63,94,.13);animation-duration:20s"></div>
 
-<!-- Main -->
-<div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-16">
+<!-- ════════════════════════════════════
+     SLIDES
+════════════════════════════════════ -->
+<div id="slideWrap">
 
-  <div class="card w-full max-w-md px-8 py-10 text-center" id="mainCard">
-    <div class="card-strip"></div>
-    <div class="corner-dot" style="top:20px;left:20px;"></div>
-    <div class="corner-dot" style="top:20px;right:20px;background:rgba(168,85,247,0.7);box-shadow:0 0 8px rgba(168,85,247,0.9);"></div>
-    <div class="corner-dot" style="bottom:20px;left:20px;background:rgba(168,85,247,0.7);box-shadow:0 0 8px rgba(168,85,247,0.9);"></div>
-    <div class="corner-dot" style="bottom:20px;right:20px;"></div>
+  <!-- SLIDE 0: Welcome / Intro -->
+  <div class="slide active" id="slide-0">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div>
+      <div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <div class="cdot" style="bottom:18px;left:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <div class="cdot" style="bottom:18px;right:18px"></div>
 
-    <!-- Initials -->
-    <div class="initials-ring mb-5">K&amp;S</div>
-
-    <!-- Names -->
-    <h1 class="title text-4xl sm:text-5xl mb-1">Kathiravan</h1>
-    <div class="heartbeat" style="font-size:2rem;margin:6px 0;">❤️</div>
-    <h1 class="title text-4xl sm:text-5xl mb-5">Sathiya Priya</h1>
-
-    <!-- Divider -->
-    <div class="divider mb-5">
-      <div class="divider-line"></div>
-      <div class="divider-diamond"></div>
-      <div class="divider-line"></div>
+      <div class="initials-ring mb-4">K&amp;S</div>
+      <p class="hint mb-2">A special message for</p>
+      <h1 class="title-grad text-4xl sm:text-5xl mb-1">Kathiravan</h1>
+      <div class="hb" style="font-size:1.8rem;margin:.4rem 0">❤️</div>
+      <h1 class="title-grad text-4xl sm:text-5xl mb-4">Sathiya Priya</h1>
+      <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <p class="subtitle-text text-lg mb-1">I have something important to ask you...</p>
+      <p class="hint mb-6">11 questions. One big moment. 🌹</p>
+      <button class="btn-primary" onclick="next()">Let's Begin ✨</button>
     </div>
-
-    <!-- Subtitle -->
-    <p class="subtitle mb-1">Will you be mine forever?</p>
-    <p style="font-size:0.75rem;color:rgba(255,255,255,0.28);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:1.5rem;">
-      Your heart already knows the answer 🌹
-    </p>
-
-    <!-- Couple row -->
-    <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:1.6rem;font-size:1.5rem;">
-      <span>🧑</span>
-      <span style="font-size:1rem;color:rgba(244,63,94,0.6);">——</span>
-      <span class="heartbeat" style="font-size:1.3rem;">💖</span>
-      <span style="font-size:1rem;color:rgba(244,63,94,0.6);">——</span>
-      <span>👩</span>
-    </div>
-
-    <!-- YES -->
-    <button class="btn-yes" id="btnYes" onclick="handleYes()">
-      ✨ Yes, forever &amp; always! 💕
-    </button>
-
-    <!-- NO zone: button hovers here, then flees -->
-    <div id="noZone"></div>
-
-    <!-- Divider 2 -->
-    <div class="divider mt-6 mb-4">
-      <div class="divider-line"></div>
-      <div class="divider-diamond" style="background:#a855f7;box-shadow:0 0 8px rgba(168,85,247,0.9);"></div>
-      <div class="divider-line"></div>
-    </div>
-
-    <!-- Share -->
-    <button class="btn-share" onclick="handleShare()">Share 💌 with your love</button>
-
-    <!-- Quote -->
-    <p style="margin-top:1.4rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.8rem;color:rgba(255,255,255,0.2);letter-spacing:0.04em;">
-      "You are my today and all of my tomorrows."
-    </p>
   </div>
 
-</div>
+  <!-- SLIDE 1: First question — emoji react -->
+  <div class="slide enter-down" id="slide-1">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <span class="emoji-big">🌅</span>
+      <p class="hint mb-2">Question 1 of 10</p>
+      <h2 class="title-grad text-2xl sm:text-3xl mb-3">When you wake up in the morning, what's your first thought?</h2>
+      <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div style="margin:1rem 0">
+        <button class="btn-choice" onclick="pickChoice(this,'☀️ A new day full of possibilities!')">☀️ A new day full of possibilities!</button>
+        <button class="btn-choice" onclick="pickChoice(this,'😴 Just five more minutes...')">😴 Just five more minutes...</button>
+        <button class="btn-choice" onclick="pickChoice(this,'💭 Thinking about someone special')">💭 Thinking about someone special</button>
+        <button class="btn-choice" onclick="pickChoice(this,'☕ Coffee. Just coffee.')">☕ Coffee. Just coffee.</button>
+      </div>
+    </div>
+  </div>
 
-<!-- NO button (fixed position, moves away from mouse) -->
+  <!-- SLIDE 2: Memory lane -->
+  <div class="slide enter-down" id="slide-2">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <span class="emoji-big">📖</span>
+      <p class="hint mb-2">Question 2 of 10</p>
+      <h2 class="title-grad text-2xl sm:text-3xl mb-3">Which memory makes you smile the most?</h2>
+      <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div style="margin:1rem 0">
+        <button class="btn-choice" onclick="pickChoice(this,'🌧️ That rainy evening we shared')">🌧️ That rainy evening we shared</button>
+        <button class="btn-choice" onclick="pickChoice(this,'😂 When we couldn\'t stop laughing')">😂 When we couldn't stop laughing</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🌙 That late night conversation')">🌙 That late night conversation</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🎵 Our song playing unexpectedly')">🎵 Our song playing unexpectedly</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Rating how you feel -->
+  <div class="slide enter-down" id="slide-3">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <span class="emoji-big">⭐</span>
+      <p class="hint mb-2">Question 3 of 10</p>
+      <h2 class="title-grad text-2xl sm:text-3xl mb-2">How does your heart feel right now?</h2>
+      <p class="hint mb-1">Rate with stars ✨</p>
+      <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div class="star-row" id="starRow">
+        <span class="star-btn" data-i="1" onclick="rateStar(1)">⭐</span>
+        <span class="star-btn" data-i="2" onclick="rateStar(2)">⭐</span>
+        <span class="star-btn" data-i="3" onclick="rateStar(3)">⭐</span>
+        <span class="star-btn" data-i="4" onclick="rateStar(4)">⭐</span>
+        <span class="star-btn" data-i="5" onclick="rateStar(5)">⭐</span>
+      </div>
+      <p id="starMsg" class="subtitle-text text-sm mb-3" style="min-height:1.5rem;color:rgba(253,164,175,.7)"></p>
+      <button class="btn-primary" id="starNext" style="display:none" onclick="next()">That's beautiful! ❤️ Next →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Type your answer -->
+  <div class="slide enter-down" id="slide-4">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <span class="emoji-big">💌</span>
+      <p class="hint mb-2">Question 4 of 10</p>
+      <h2 class="title-grad text-2xl sm:text-3xl mb-3">In one word, how would you describe "us"?</h2>
+      <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div style="margin:1.2rem 0">
+        <input class="love-input" id="wordInput" type="text" maxlength="30" placeholder="Type one word..." oninput="checkWordInput()"/>
+        <p id="wordPreview" class="title-grad text-3xl mt-3" style="min-height:2.5rem;transition:all .3s"></p>
+      </div>
+      <button class="btn-primary" id="wordNext" style="display:none" onclick="next()">Perfect word! 💕 Next →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Would you rather -->
+  <div class="slide enter-down" id="slide-5">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <span class="emoji-big">🌍</span>
+      <p class="hint mb-2">Question 5 of 10</p>
+      <h2 class="title-grad text-2xl sm:text-3xl mb-3">Would you rather…</h2>
+      <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div style="margin:1rem 0">
+        <button class="btn-choice" onclick="pickChoice(this,'🏔️ Adventure in the mountains together')">🏔️ Adventure in the mountains together</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🏖️ Lazy days by the ocean')">🏖️ Lazy days by the ocean</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🌆 Explore a new city every month')">🌆 Explore a new city every month</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🏠 Cozy home, just us two')">🏠 Cozy home, just us two</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: Fun quiz -->
+  <div class="slide enter-down" id="slide-6">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <span class="emoji-big">🎭</span>
+      <p class="hint mb-2">Question 6 of 10</p>
+      <h2 class="title-grad text-2xl sm:text-3xl mb-3">What's your love language?</h2>
+      <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div style="margin:1rem 0">
+        <button class="btn-choice" onclick="pickChoice(this,'💬 Words of Affirmation')">💬 Words of Affirmation</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🤗 Physical Touch')">🤗 Physical Touch</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🎁 Receiving Gifts')">🎁 Receiving Gifts</button>
+        <button class="btn-choice" onclick="pickChoice(this,'⏰ Quality Time')">⏰ Quality Time</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: Deep question -->
+  <div class="slide enter-down" id="slide-7">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <span class="emoji-big">🌙</span>
+      <p class="hint mb-2">Question 7 of 10</p>
+      <h2 class="title-grad text-2xl sm:text-3xl mb-3">What do you dream about most?</h2>
+      <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div style="margin:1rem 0">
+        <button class="btn-choice" onclick="pickChoice(this,'👨‍👩‍👧 A happy family someday')">👨‍👩‍👧 A happy family someday</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🌏 Travelling the whole world')">🌏 Travelling the whole world</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🏡 Building a beautiful home')">🏡 Building a beautiful home</button>
+        <button class="btn-choice" onclick="pickChoice(this,'💫 Growing old with someone I love')">💫 Growing old with someone I love</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: What I love about you -->
+  <div class="slide enter-down" id="slide-8">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <span class="emoji-big">💖</span>
+      <p class="hint mb-1">Not a question — just the truth 🌹</p>
+      <h2 class="title-grad text-2xl sm:text-3xl mb-3">Things I love about you</h2>
+      <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div style="margin:.8rem 0">
+        <div class="memory-item" style="animation-delay:.05s"><span class="memory-icon">😊</span><span class="memory-text">Your smile that lights up every room you walk into</span></div>
+        <div class="memory-item" style="animation-delay:.15s"><span class="memory-icon">💪</span><span class="memory-text">The strength you show even on the hardest days</span></div>
+        <div class="memory-item" style="animation-delay:.25s"><span class="memory-icon">🧠</span><span class="memory-text">Your mind — the way you think and see the world</span></div>
+        <div class="memory-item" style="animation-delay:.35s"><span class="memory-icon">🫀</span><span class="memory-text">Your kind heart that loves without conditions</span></div>
+      </div>
+      <button class="btn-primary" onclick="next()" style="margin-top:.5rem">This is so sweet... 🥹 Next →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: Almost there -->
+  <div class="slide enter-down" id="slide-9">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <span class="emoji-big">🎯</span>
+      <p class="hint mb-2">Question 9 of 10</p>
+      <h2 class="title-grad text-2xl sm:text-3xl mb-3">If you could describe your perfect day with someone special, it would be…</h2>
+      <div class="divider"><div class="dl"></div><div class="dd"></div><div class="dl"></div></div>
+      <div style="margin:1rem 0">
+        <button class="btn-choice" onclick="pickChoice(this,'🌄 Watching sunrise, holding hands')">🌄 Watching sunrise, holding hands</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🍳 Cooking together and laughing')">🍳 Cooking together and laughing</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🎬 Movie marathon, cozy blankets')">🎬 Movie marathon, cozy blankets</button>
+        <button class="btn-choice" onclick="pickChoice(this,'🌌 Stargazing and talking all night')">🌌 Stargazing and talking all night</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: Final question — The moment -->
+  <div class="slide enter-down" id="slide-10">
+    <div class="card">
+      <div class="card-strip"></div>
+      <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+      <div class="cdot" style="bottom:18px;left:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div><div class="cdot" style="bottom:18px;right:18px"></div>
+
+      <div class="initials-ring mb-4">K&amp;S</div>
+      <p class="hint mb-1">Question 10 of 10 — The Big One 🌹</p>
+      <h2 class="title-grad text-3xl sm:text-4xl mb-1">Sathiya Priya...</h2>
+      <div class="hb" style="font-size:2rem;margin:.4rem 0">💍</div>
+      <h2 class="title-grad text-2xl sm:text-3xl mb-4">Will you be mine forever?</h2>
+      <div class="divider"><div class="dl"></div><div class="ddp dd"></div><div class="dl"></div></div>
+      <p class="subtitle-text mb-5">Every answer you gave leads to this moment...</p>
+
+      <!-- YES -->
+      <button class="btn-primary" onclick="handleYes()">💕 Yes, forever &amp; always!</button>
+
+      <!-- NO ghost zone -->
+      <div id="noZone"></div>
+
+      <div class="divider mt-4 mb-3"><div class="dl"></div><div class="ddp dd"></div><div class="dl"></div></div>
+      <button class="btn-secondary" onclick="handleShare()">Share 💌 with your love</button>
+      <p style="margin-top:1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.78rem;color:rgba(255,255,255,.18);letter-spacing:.04em">"You are my today and all of my tomorrows."</p>
+    </div>
+  </div>
+
+</div><!-- /slideWrap -->
+
+<!-- Progress dots -->
+<div id="progress"></div>
+
+<!-- NO button -->
 <button class="btn-no" id="btnNo">❌ No, never</button>
 
-<!-- Success -->
+<!-- Success overlay -->
 <div class="success-overlay" id="successOverlay">
   <div class="success-card">
     <div class="card-strip"></div>
-    <div class="corner-dot" style="top:20px;left:20px;"></div>
-    <div class="corner-dot" style="top:20px;right:20px;background:rgba(168,85,247,0.7);box-shadow:0 0 8px rgba(168,85,247,0.9);"></div>
-    <div class="corner-dot" style="bottom:20px;left:20px;background:rgba(168,85,247,0.7);box-shadow:0 0 8px rgba(168,85,247,0.9);"></div>
-    <div class="corner-dot" style="bottom:20px;right:20px;"></div>
-    <div class="pop-in" style="font-size:4rem;margin-bottom:1rem;">😍</div>
-    <h2 class="success-title pop-in" style="animation-delay:0.12s;">Yay! I knew it!</h2>
-    <div class="pop-in" style="animation-delay:0.2s;font-size:2rem;margin:0.5rem 0;">❤️💕❤️</div>
-    <p class="pop-in" style="animation-delay:0.28s;color:rgba(253,164,175,0.82);font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;margin-bottom:0.4rem;">
-      You made me the happiest person alive!
-    </p>
-    <p class="pop-in" style="animation-delay:0.36s;color:rgba(255,255,255,0.28);font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:1.5rem;">
-      This is just the beginning of our forever 🌹
-    </p>
-    <div class="pop-in" style="animation-delay:0.44s;font-size:2.4rem;">🧑❤️👩</div>
+    <div class="cdot" style="top:18px;left:18px"></div><div class="cdot" style="top:18px;right:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div>
+    <div class="cdot" style="bottom:18px;left:18px;background:rgba(168,85,247,.7);box-shadow:0 0 8px rgba(168,85,247,.9)"></div><div class="cdot" style="bottom:18px;right:18px"></div>
+    <div class="pop-in" style="font-size:4rem;margin-bottom:.8rem">😍</div>
+    <h2 class="title-grad pop-in text-4xl sm:text-5xl" style="animation-delay:.1s;font-family:'Cormorant Garamond',serif">Yay! I knew it!</h2>
+    <div class="pop-in" style="animation-delay:.2s;font-size:2rem;margin:.5rem 0">❤️ 💕 ❤️</div>
+    <p class="pop-in subtitle-text" style="animation-delay:.3s;font-size:1.1rem;margin-bottom:.3rem">You made me the happiest person alive!</p>
+    <p class="pop-in hint" style="animation-delay:.38s;margin-bottom:1.2rem">This is just the beginning of our forever 🌹</p>
+    <div class="pop-in" style="animation-delay:.46s;font-size:2.2rem;margin-bottom:1.4rem">🧑 ❤️ 👩</div>
+    <div id="answersReveal" class="pop-in" style="animation-delay:.55s;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:1.2rem;padding:1rem;text-align:left;margin-bottom:1.2rem;font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.8;font-family:'DM Sans',sans-serif"></div>
     <button onclick="document.getElementById('successOverlay').classList.remove('visible')"
-      style="margin-top:1.5rem;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);
-             color:rgba(255,255,255,0.45);padding:0.5rem 1.5rem;border-radius:9999px;
-             font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.05em;">
+      style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);padding:.5rem 1.5rem;border-radius:9999px;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.05em">
       ✨ Close
     </button>
   </div>
@@ -402,163 +445,301 @@ body {
 <div class="toast" id="toast">Link copied! Send it to your love ❤️</div>
 
 <script>
-/* ── Stars ── */
+/* ══════════════════════════════════════════════
+   CURSOR
+══════════════════════════════════════════════ */
+const cur = document.getElementById('cursor');
+const trail = document.getElementById('cursor-trail');
+document.addEventListener('mousemove', e => {
+  cur.style.left   = e.clientX + 'px';
+  cur.style.top    = e.clientY + 'px';
+  trail.style.left = e.clientX + 'px';
+  trail.style.top  = e.clientY + 'px';
+});
+document.addEventListener('mousedown', () => { cur.style.transform = 'translate(-50%,-50%) scale(1.8)'; });
+document.addEventListener('mouseup',   () => { cur.style.transform = 'translate(-50%,-50%) scale(1)'; });
+
+/* ══════════════════════════════════════════════
+   STARS
+══════════════════════════════════════════════ */
 const starsEl = document.getElementById('stars');
-for (let i = 0; i < 130; i++) {
+for (let i = 0; i < 120; i++) {
   const s = document.createElement('div');
   s.className = 'star';
-  const sz = 0.7 + Math.random() * 2.2;
-  s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation-duration:${1.5+Math.random()*3}s;animation-delay:${Math.random()*4}s;`;
+  const sz = .6 + Math.random() * 2;
+  s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation-duration:${1.5+Math.random()*3}s;animation-delay:${Math.random()*4}s`;
   starsEl.appendChild(s);
 }
 
-/* ── Floating hearts ── */
-const HEARTS = ['❤️','💕','💗','💓','💖','💝','🌹','✨','💞','🌸','🌷'];
-const heartBg = document.getElementById('heartBg');
+/* ══════════════════════════════════════════════
+   HEARTS
+══════════════════════════════════════════════ */
+const HEARTS = ['❤️','💕','💗','💓','💖','💝','🌹','✨','💞','🌸'];
+const hBg    = document.getElementById('heartBg');
 function spawnHeart(fast) {
   const el = document.createElement('div');
-  el.className = 'heart-particle';
+  el.className = 'heart-p';
   el.textContent = HEARTS[Math.floor(Math.random() * HEARTS.length)];
-  const sz = 0.8 + Math.random() * 1.5;
+  const sz = .8 + Math.random() * 1.4;
   el.style.fontSize = sz + 'rem';
   el.style.left = Math.random() * 100 + 'vw';
-  const dur = fast ? (3 + Math.random() * 4) : (10 + Math.random() * 10);
+  const dur = fast ? 3 + Math.random() * 3 : 10 + Math.random() * 10;
   el.style.animationDuration = dur + 's';
-  el.style.animationDelay = fast ? '0s' : (Math.random() * 4 + 's');
-  heartBg.appendChild(el);
+  el.style.animationDelay = fast ? '0s' : Math.random() * 4 + 's';
+  hBg.appendChild(el);
   setTimeout(() => el.remove(), (dur + 5) * 1000);
 }
-for (let i = 0; i < 20; i++) setTimeout(() => spawnHeart(false), i * 380);
-setInterval(() => spawnHeart(false), 950);
+for (let i = 0; i < 18; i++) setTimeout(() => spawnHeart(false), i * 400);
+setInterval(() => spawnHeart(false), 900);
 
-/* ── NO Button: proximity escape ── */
-const btnNo  = document.getElementById('btnNo');
-const noZone = document.getElementById('noZone');
-let noX = 0, noY = 0;
+/* ══════════════════════════════════════════════
+   SLIDE ENGINE
+══════════════════════════════════════════════ */
+const TOTAL = 11; // slides 0–10
+let current = 0;
+const answers = {};
+
+// Build progress dots
+const progEl = document.getElementById('progress');
+for (let i = 0; i < TOTAL; i++) {
+  const d = document.createElement('div');
+  d.className = 'prog-dot' + (i === 0 ? ' active' : '');
+  d.id = 'dot-' + i;
+  progEl.appendChild(d);
+}
+
+function updateUI() {
+  document.getElementById('topBar').style.width = ((current + 1) / TOTAL * 100) + '%';
+  document.getElementById('slideCounter').textContent = (current + 1) + ' / ' + TOTAL;
+  document.getElementById('backBtn').style.display = current > 0 ? 'block' : 'none';
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.getElementById('dot-' + i);
+    if (!d) continue;
+    d.className = 'prog-dot' + (i < current ? ' done' : i === current ? ' active' : '');
+  }
+  // Show NO button only on last slide
+  document.getElementById('btnNo').style.opacity = current === 10 ? '1' : '0';
+  document.getElementById('btnNo').style.pointerEvents = 'none';
+  if (current === 10) initNoButton();
+}
+
+function next() {
+  if (current >= TOTAL - 1) return;
+  const cur_slide = document.getElementById('slide-' + current);
+  const nxt_slide = document.getElementById('slide-' + (current + 1));
+  cur_slide.classList.add('exit-up');
+  cur_slide.classList.remove('active');
+  setTimeout(() => {
+    cur_slide.classList.remove('exit-up');
+    cur_slide.classList.add('enter-down');
+    nxt_slide.classList.remove('enter-down');
+    nxt_slide.classList.add('active');
+    current++;
+    updateUI();
+    // Re-init NO button position after transition
+    if (current === 10) setTimeout(placeNoOverZone, 350);
+  }, 300);
+}
+
+function goBack() {
+  if (current <= 0) return;
+  const cur_slide = document.getElementById('slide-' + current);
+  const prv_slide = document.getElementById('slide-' + (current - 1));
+  cur_slide.classList.remove('active');
+  cur_slide.classList.add('enter-down');
+  prv_slide.classList.remove('exit-up', 'enter-down');
+  prv_slide.classList.add('active');
+  current--;
+  updateUI();
+}
+
+/* ══════════════════════════════════════════════
+   CHOICE BUTTONS
+══════════════════════════════════════════════ */
+function pickChoice(btn, label) {
+  const slide = btn.closest('.slide');
+  const btns = slide.querySelectorAll('.btn-choice');
+  btns.forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const qNum = parseInt(slide.id.split('-')[1]);
+  answers['q' + qNum] = label;
+  spawnSparkle(event.clientX, event.clientY);
+  setTimeout(next, 500);
+}
+
+/* ══════════════════════════════════════════════
+   STAR RATING
+══════════════════════════════════════════════ */
+const starMsgs = ['','😢 A little sad?','😐 Getting there...','😊 Pretty good!','😍 So happy!','🤩 Over the moon! 💖'];
+function rateStar(n) {
+  const stars = document.querySelectorAll('.star-btn');
+  stars.forEach((s, i) => {
+    s.classList.toggle('lit', i < n);
+  });
+  document.getElementById('starMsg').textContent = starMsgs[n];
+  document.getElementById('starNext').style.display = 'block';
+  answers['q3'] = n + ' stars — ' + starMsgs[n];
+  spawnSparkle(event.clientX, event.clientY);
+}
+
+/* ══════════════════════════════════════════════
+   TEXT INPUT
+══════════════════════════════════════════════ */
+function checkWordInput() {
+  const val = document.getElementById('wordInput').value.trim();
+  document.getElementById('wordPreview').textContent = val;
+  document.getElementById('wordNext').style.display = val.length >= 2 ? 'block' : 'none';
+  if (val.length >= 2) answers['q4'] = '"' + val + '"';
+}
+
+/* ══════════════════════════════════════════════
+   NO BUTTON — BULLETPROOF PROXIMITY ESCAPE
+══════════════════════════════════════════════ */
+const btnNo   = document.getElementById('btnNo');
+const noZone  = document.getElementById('noZone');
+let noLeft = 0, noTop = 0;
 let escapeCount = 0;
-let ready = false;
+let noCooling = false;
+let noReady = false;
 
-function snapToZone() {
+function placeNoOverZone() {
   const r  = noZone.getBoundingClientRect();
   const bw = btnNo.offsetWidth  || 148;
-  const bh = btnNo.offsetHeight || 52;
-  noX = r.left + (r.width  - bw) / 2;
-  noY = r.top  + window.scrollY + (r.height - bh) / 2;
+  const bh = btnNo.offsetHeight || 50;
+  noLeft = r.left + (r.width  - bw) / 2;
+  noTop  = r.top  + (r.height - bh) / 2;
   btnNo.style.transition = 'none';
-  btnNo.style.left = noX + 'px';
-  btnNo.style.top  = noY + 'px';
-  ready = true;
+  btnNo.style.left = noLeft + 'px';
+  btnNo.style.top  = noTop  + 'px';
+  noReady = true;
 }
-window.addEventListener('load',   snapToZone);
-window.addEventListener('resize', snapToZone);
+
+function initNoButton() {
+  noReady = false;
+  escapeCount = 0;
+  setTimeout(placeNoOverZone, 80);
+}
+
+window.addEventListener('resize', () => { if (current === 10) placeNoOverZone(); });
 
 document.addEventListener('mousemove', (e) => {
-  if (!ready) return;
-  const bw = btnNo.offsetWidth;
-  const bh = btnNo.offsetHeight;
-  const cx = noX + bw / 2;  // button center x
-  const cy = noY + bh / 2;  // button center y (viewport-relative not needed, we use scrollY offset below)
-  const btnCY_vp = noY - window.scrollY + bh / 2; // viewport-relative Y of button center
-
+  if (!noReady || noCooling || current !== 10) return;
+  const r  = btnNo.getBoundingClientRect();
+  const cx = r.left + r.width  / 2;
+  const cy = r.top  + r.height / 2;
   const dx = e.clientX - cx;
-  const dy = e.clientY - btnCY_vp;
+  const dy = e.clientY - cy;
   const dist = Math.hypot(dx, dy);
-
-  // Trigger radius shrinks after first 3 escapes (gets sneakier)
-  const triggerR = Math.max(55, 140 - escapeCount * 9);
+  const triggerR = Math.max(48, 145 - escapeCount * 8);
 
   if (dist < triggerR) {
     escapeCount++;
-    const margin = 16;
-    const maxX = window.innerWidth  - bw - margin;
-    const maxY = window.innerHeight - bh - margin + window.scrollY;
-
-    let newX, newY, tries = 0;
-    do {
-      // Flee in opposite direction with random arc
-      const angle = Math.atan2(-dy, -dx) + (Math.random() - 0.5) * Math.PI * 0.9;
-      const force = 170 + Math.random() * 200 + escapeCount * 18;
-      newX = Math.max(margin, Math.min(maxX, cx + Math.cos(angle) * force - bw / 2));
-      newY = Math.max(margin + window.scrollY, Math.min(maxY, (noY + bh / 2) + Math.sin(angle) * force - bh / 2));
-      tries++;
-    } while (tries < 10 && Math.hypot(newX - noX, newY - noY) < 80);
-
-    const spd = Math.max(0.04, 0.26 - escapeCount * 0.016);
-    btnNo.style.transition = `left ${spd}s cubic-bezier(.34,1.56,.64,1), top ${spd}s cubic-bezier(.34,1.56,.64,1)`;
-    btnNo.style.left = newX + 'px';
-    btnNo.style.top  = newY + 'px';
-    noX = newX;
-    noY = newY;
-
-    // Sparkle at escape origin
+    const margin = 14;
+    const maxL = window.innerWidth  - r.width  - margin;
+    const maxT = window.innerHeight - r.height - margin;
+    const angle = Math.atan2(-dy, -dx) + (Math.random() - .5) * Math.PI * .85;
+    const force = 160 + Math.random() * 200 + escapeCount * 16;
+    let newL = Math.max(margin, Math.min(maxL, cx + Math.cos(angle) * force - r.width  / 2));
+    let newT = Math.max(margin, Math.min(maxT, cy + Math.sin(angle) * force - r.height / 2));
+    if (Math.hypot(newL - noLeft, newT - noTop) < 80) {
+      newL = margin + Math.random() * maxL;
+      newT = margin + Math.random() * maxT;
+    }
+    const spd = Math.max(.04, .28 - escapeCount * .018);
+    btnNo.style.transition = `left ${spd}s cubic-bezier(.34,1.56,.64,1),top ${spd}s cubic-bezier(.34,1.56,.64,1)`;
+    btnNo.style.left = newL + 'px';
+    btnNo.style.top  = newT + 'px';
+    noLeft = newL; noTop = newT;
     spawnSparkle(e.clientX, e.clientY);
+    noCooling = true;
+    setTimeout(() => { noCooling = false; }, spd * 1000 + 80);
   }
 });
 
-// Touch support
 document.addEventListener('touchmove', (e) => {
+  if (current !== 10) return;
+  e.preventDefault();
   const t = e.touches[0];
-  document.dispatchEvent(new MouseEvent('mousemove', { clientX: t.clientX, clientY: t.clientY }));
-}, { passive: true });
+  document.dispatchEvent(new MouseEvent('mousemove', { clientX: t.clientX, clientY: t.clientY, bubbles: true }));
+}, { passive: false });
 
-/* ── Sparkle ── */
-const SPARKS = ['✨','💨','😅','🏃','😂','👻'];
+/* ══════════════════════════════════════════════
+   YES HANDLER
+══════════════════════════════════════════════ */
+function handleYes() {
+  launchConfetti();
+  for (let i = 0; i < 50; i++) setTimeout(() => spawnHeart(true), i * 50);
+
+  // Build answers summary
+  const lines = [
+    answers.q1 ? '🌅 Morning mood: ' + answers.q1 : '',
+    answers.q2 ? '📖 Favourite memory: ' + answers.q2 : '',
+    answers.q3 ? '⭐ Heart feeling: ' + answers.q3 : '',
+    answers.q4 ? '💌 One word for us: ' + answers.q4 : '',
+    answers.q5 ? '🌍 Dream trip: ' + answers.q5 : '',
+    answers.q6 ? '🎭 Love language: ' + answers.q6 : '',
+    answers.q7 ? '🌙 Big dream: ' + answers.q7 : '',
+    answers.q9 ? '🎯 Perfect day: ' + answers.q9 : '',
+  ].filter(Boolean);
+  document.getElementById('answersReveal').innerHTML = '<p style="color:rgba(253,164,175,.5);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem">Your answers 💕</p>' + lines.join('<br>');
+
+  setTimeout(() => document.getElementById('successOverlay').classList.add('visible'), 300);
+}
+
+/* ══════════════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════════════ */
+function launchConfetti() {
+  const cols = ['#f43f5e','#fda4af','#a855f7','#c084fc','#fb923c','#facc15','#34d399','#60a5fa','#f472b6'];
+  for (let i = 0; i < 140; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.left = 5 + Math.random() * 90 + 'vw';
+      el.style.background = cols[Math.floor(Math.random() * cols.length)];
+      const w = 6 + Math.random() * 11;
+      el.style.width  = w + 'px';
+      el.style.height = w * (.4 + Math.random() * 1.1) + 'px';
+      el.style.borderRadius = Math.random() > .4 ? '50%' : '2px';
+      const dur = 1.8 + Math.random() * 2.2;
+      el.style.animationDuration = dur + 's';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), dur * 1000 + 100);
+    }, i * 18);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   SPARKLE
+══════════════════════════════════════════════ */
+const SPARKS = ['✨','💨','😅','🏃','😂','👻','🙈','💫'];
 function spawnSparkle(x, y) {
   const el = document.createElement('div');
   el.className = 'sparkle';
   el.textContent = SPARKS[Math.floor(Math.random() * SPARKS.length)];
   el.style.left = (x - 14) + 'px';
-  el.style.top  = (y - 14 + window.scrollY) + 'px';
+  el.style.top  = (y - 14) + 'px';
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 950);
 }
 
-/* ── YES ── */
-function handleYes() {
-  launchConfetti();
-  for (let i = 0; i < 45; i++) setTimeout(() => spawnHeart(true), i * 55);
-  setTimeout(() => document.getElementById('successOverlay').classList.add('visible'), 280);
-}
-
-/* ── Confetti ── */
-function launchConfetti() {
-  const colors = ['#f43f5e','#fda4af','#a855f7','#c084fc','#fb923c','#facc15','#34d399','#60a5fa','#f472b6'];
-  for (let i = 0; i < 130; i++) {
-    setTimeout(() => {
-      const el = document.createElement('div');
-      el.className = 'confetti-piece';
-      el.style.left = (5 + Math.random() * 90) + 'vw';
-      el.style.background = colors[Math.floor(Math.random() * colors.length)];
-      const w = 6 + Math.random() * 11;
-      el.style.width  = w + 'px';
-      el.style.height = (w * (0.4 + Math.random() * 1.1)) + 'px';
-      el.style.borderRadius = Math.random() > 0.4 ? '50%' : '2px';
-      const dur = 1.8 + Math.random() * 2.2;
-      el.style.animationDuration = dur + 's';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), dur * 1000 + 100);
-    }, i * 20);
-  }
-}
-
-/* ── Share ── */
+/* ══════════════════════════════════════════════
+   SHARE
+══════════════════════════════════════════════ */
 function handleShare() {
   const data = { title: 'Kathiravan ❤️ Sathiya Priya', text: 'Will you be mine forever? 💕', url: window.location.href };
   if (navigator.share) { navigator.share(data).catch(() => {}); return; }
-  const fallback = () => {
-    const ta = document.createElement('textarea');
-    ta.value = window.location.href;
-    document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); ta.remove(); showToast();
-  };
-  navigator.clipboard ? navigator.clipboard.writeText(window.location.href).then(showToast).catch(fallback) : fallback();
+  const fb = () => { const ta = document.createElement('textarea'); ta.value = window.location.href; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); showToast(); };
+  navigator.clipboard ? navigator.clipboard.writeText(window.location.href).then(showToast).catch(fb) : fb();
 }
-
 function showToast() {
   const t = document.getElementById('toast');
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3200);
 }
+
+/* init */
+updateUI();
 </script>
 </body>
 </html>
