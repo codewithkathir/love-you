@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kathiravan ❤️ Sathiya Priya</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #0d0010;
+}
+
+/* ── Aurora blobs ── */
+.aurora { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.aurora-blob {
+  position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.55;
+  animation: blobDrift ease-in-out infinite alternate;
+}
+@keyframes blobDrift {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(var(--dx),var(--dy)) scale(var(--ds)); }
+}
+
+/* ── Stars ── */
+.stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.star {
+  position: absolute; background: #fff; border-radius: 50%;
+  animation: twinkle ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  0%   { opacity: 0.1; transform: scale(0.8); }
+  100% { opacity: 0.9; transform: scale(1.2); }
+}
+
+/* ── Floating hearts ── */
+.heart-bg { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+.heart-particle {
+  position: absolute; bottom: -60px; opacity: 0;
+  animation: floatHeart linear infinite;
+  filter: drop-shadow(0 0 8px rgba(244,63,94,0.7));
+  user-select: none;
+}
+@keyframes floatHeart {
+  0%   { transform: translateY(0) rotate(-15deg) scale(0.7); opacity: 0; }
+  8%   { opacity: 0.8; }
+  85%  { opacity: 0.3; }
+  100% { transform: translateY(-115vh) rotate(25deg) scale(1.3); opacity: 0; }
+}
+
+/* ── Spinning deco rings ── */
+.deco-ring {
+  position: fixed; border-radius: 50%;
+  border: 1px solid rgba(244,63,94,0.12);
+  pointer-events: none; z-index: 0;
+  animation: decoSpin linear infinite;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+@keyframes decoSpin {
+  from { transform: translate(-50%,-50%) rotate(0deg); }
+  to   { transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+/* ── Card ── */
+.card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(255,255,255,0.09) 0%, rgba(180,60,120,0.07) 50%, rgba(100,20,160,0.09) 100%);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-radius: 2.5rem;
+  border: 1px solid rgba(255,255,255,0.13);
+  box-shadow: 0 0 0 1px rgba(244,63,94,0.08), 0 40px 100px rgba(0,0,0,0.6),
+              0 0 60px rgba(168,85,247,0.12), inset 0 1px 0 rgba(255,255,255,0.18);
+  overflow: visible;
+}
+.card::before {
+  content: ''; position: absolute; inset: -1px; border-radius: inherit;
+  background: linear-gradient(135deg, rgba(244,63,94,0.3), rgba(168,85,247,0.2), rgba(244,63,94,0.15));
+  z-index: -1; filter: blur(8px); opacity: 0.5;
+}
+.card-strip {
+  position: absolute; top: 0; left: 10%; right: 10%; height: 2px;
+  background: linear-gradient(90deg, transparent, #f43f5e, #c084fc, #f43f5e, transparent);
+  border-radius: 9999px;
+}
+.corner-dot {
+  position: absolute; width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(244,63,94,0.7); box-shadow: 0 0 8px rgba(244,63,94,0.9);
+}
+
+/* ── Initials ring ── */
+.initials-ring {
+  width: 84px; height: 84px; border-radius: 50%;
+  background: linear-gradient(135deg, #f43f5e, #a855f7);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem; font-weight: 700; color: #fff; margin: 0 auto;
+  animation: ringGlow 3s ease-in-out infinite alternate;
+}
+@keyframes ringGlow {
+  0%   { box-shadow: 0 0 0 3px rgba(244,63,94,0.3), 0 0 24px rgba(244,63,94,0.5); }
+  100% { box-shadow: 0 0 0 5px rgba(168,85,247,0.4), 0 0 44px rgba(168,85,247,0.6); }
+}
+
+/* ── Title ── */
+.title {
+  font-family: 'Cormorant Garamond', serif; font-weight: 700; line-height: 1.1;
+  background: linear-gradient(135deg, #fda4af 0%, #f43f5e 30%, #e879f9 60%, #fda4af 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: shimmer 5s linear infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+
+.subtitle {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 1.3rem; color: rgba(253,164,175,0.88); letter-spacing: 0.03em;
+}
+
+/* ── Divider ── */
+.divider { display: flex; align-items: center; gap: 10px; }
+.divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(244,63,94,0.5), transparent); }
+.divider-diamond {
+  width: 6px; height: 6px; background: #f43f5e;
+  transform: rotate(45deg); box-shadow: 0 0 8px rgba(244,63,94,0.8);
+}
+
+/* ── YES button ── */
+.btn-yes {
+  width: 100%; padding: 1.1rem 1.5rem;
+  font-family: 'DM Sans', sans-serif; font-size: 1.05rem;
+  font-weight: 600; letter-spacing: 0.05em; color: #fff;
+  border: none; border-radius: 9999px; cursor: pointer;
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #ff6b8a 0%, #f43f5e 40%, #dc2626 70%, #be185d 100%);
+  box-shadow: 0 8px 32px rgba(244,63,94,0.5), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+  transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease;
+  animation: yesPulse 3s ease-in-out infinite;
+}
+@keyframes yesPulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(244,63,94,0.5), inset 0 1px 0 rgba(255,255,255,0.3); }
+  50%       { box-shadow: 0 14px 44px rgba(244,63,94,0.75), inset 0 1px 0 rgba(255,255,255,0.3); }
+}
+.btn-yes::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+  transform: skewX(-20deg); animation: shine 3s ease-in-out infinite;
+}
+@keyframes shine { 0% { left: -100%; } 40% { left: 150%; } 100% { left: 150%; } }
+.btn-yes:hover {
+  transform: scale(1.06) translateY(-3px);
+  box-shadow: 0 20px 50px rgba(244,63,94,0.7), inset 0 1px 0 rgba(255,255,255,0.3);
+  animation: none;
+}
+.btn-yes:active { transform: scale(0.97); }
+
+/* ── NO button (fixed, escapes via JS) ── */
+.btn-no {
+  position: fixed;
+  font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500;
+  letter-spacing: 0.04em; color: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.18); border-radius: 9999px;
+  padding: 0.9rem 1.6rem; white-space: nowrap;
+  pointer-events: none; /* JS handles proximity via mousemove */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  transition: left 0.22s cubic-bezier(.34,1.56,.64,1), top 0.22s cubic-bezier(.34,1.56,.64,1);
+  z-index: 50; user-select: none; cursor: default;
+}
+
+/* ── Share button ── */
+.btn-share {
+  width: 100%; padding: 0.8rem 1rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.05em; color: rgba(253,164,175,0.75);
+  background: transparent; border: 1px solid rgba(253,164,175,0.2);
+  border-radius: 9999px; cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-share:hover {
+  background: rgba(244,63,94,0.12); border-color: rgba(244,63,94,0.4);
+  color: #fda4af; transform: translateY(-1px);
+}
+
+/* ── Heartbeat ── */
+.heartbeat { animation: heartbeat 1.4s ease-in-out infinite; display: inline-block; }
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  14% { transform: scale(1.35); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.2); }
+  70% { transform: scale(1); }
+}
+
+/* ── noZone: the invisible placeholder inside card ── */
+#noZone {
+  width: 100%; height: 60px; margin-top: 12px; position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+/* Ghost outline so user sees where it "should" be */
+#noZone::after {
+  content: 'Try to catch me... 😏';
+  display: flex; align-items: center; justify-content: center;
+  position: absolute; inset: 0;
+  border: 1px dashed rgba(255,255,255,0.1);
+  border-radius: 9999px;
+  color: rgba(255,255,255,0.12);
+  font-size: 0.78rem; letter-spacing: 0.06em;
+  font-family: 'DM Sans', sans-serif;
+  pointer-events: none;
+}
+
+/* ── Success overlay ── */
+.success-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  padding: 2rem; opacity: 0; pointer-events: none;
+  transition: opacity 0.5s ease;
+  background: radial-gradient(ellipse at center, rgba(80,0,60,0.98) 0%, rgba(10,0,20,0.99) 100%);
+}
+.success-overlay.visible { opacity: 1; pointer-events: all; }
+.success-card {
+  background: rgba(255,255,255,0.06); backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 2rem;
+  padding: 3rem 2.5rem; text-align: center; max-width: 480px; width: 100%;
+  position: relative;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+.success-title {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,6vw,3rem); font-weight: 700;
+  background: linear-gradient(135deg, #fda4af, #f43f5e, #c084fc);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+@keyframes popIn {
+  0%   { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+  70%  { transform: scale(1.1) rotate(3deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.pop-in { animation: popIn 0.6s cubic-bezier(.34,1.56,.64,1) both; }
+
+/* ── Confetti ── */
+.confetti-piece {
+  position: fixed; top: -20px;
+  animation: confettiFall linear forwards; z-index: 300; border-radius: 2px;
+}
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg) scaleX(1); opacity: 1; }
+  50%  { transform: translateY(50vh) rotate(360deg) scaleX(-1); }
+  100% { transform: translateY(110vh) rotate(720deg) scaleX(1); opacity: 0; }
+}
+
+/* ── Sparkle ── */
+.sparkle {
+  position: fixed; pointer-events: none; z-index: 5;
+  font-size: 1rem; animation: sparkleAnim 0.9s ease-out forwards;
+}
+@keyframes sparkleAnim {
+  0%   { transform: scale(0) translateY(0); opacity: 1; }
+  100% { transform: scale(1.4) translateY(-38px); opacity: 0; }
+}
+
+/* ── Toast ── */
+.toast {
+  position: fixed; bottom: 2rem; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: rgba(20,5,25,0.95); border: 1px solid rgba(244,63,94,0.35);
+  color: #fda4af; padding: 0.7rem 1.6rem; border-radius: 9999px;
+  font-size: 0.88rem; z-index: 400; backdrop-filter: blur(16px);
+  transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), opacity 0.4s;
+  opacity: 0; white-space: nowrap; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- Aurora -->
+<div class="aurora">
+  <div class="aurora-blob" style="width:650px;height:650px;background:radial-gradient(circle,rgba(220,40,100,0.7),transparent 70%);top:-180px;left:-180px;--dx:70px;--dy:90px;--ds:1.15;animation-duration:10s;"></div>
+  <div class="aurora-blob" style="width:550px;height:550px;background:radial-gradient(circle,rgba(140,40,220,0.6),transparent 70%);bottom:-120px;right:-120px;--dx:-80px;--dy:-60px;--ds:1.2;animation-duration:13s;"></div>
+  <div class="aurora-blob" style="width:400px;height:400px;background:radial-gradient(circle,rgba(255,80,140,0.4),transparent 70%);top:40%;left:50%;--dx:50px;--dy:30px;--ds:0.9;animation-duration:8s;"></div>
+  <div class="aurora-blob" style="width:380px;height:380px;background:radial-gradient(circle,rgba(80,0,170,0.5),transparent 70%);top:10%;right:8%;--dx:-40px;--dy:60px;--ds:1.1;animation-duration:11s;"></div>
+</div>
+
+<!-- Stars -->
+<div class="stars" id="stars"></div>
+
+<!-- Floating hearts -->
+<div class="heart-bg" id="heartBg"></div>
+
+<!-- Deco rings -->
+<div class="deco-ring" style="width:720px;height:720px;animation-duration:44s;"></div>
+<div class="deco-ring" style="width:520px;height:520px;border-color:rgba(168,85,247,0.1);animation-duration:32s;animation-direction:reverse;"></div>
+<div class="deco-ring" style="width:330px;height:330px;border-color:rgba(244,63,94,0.15);animation-duration:22s;"></div>
+
+<!-- Main -->
+<div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-16">
+
+  <div class="card w-full max-w-md px-8 py-10 text-center" id="mainCard">
+    <div class="card-strip"></div>
+    <div class="corner-dot" style="top:20px;left:20px;"></div>
+    <div class="corner-dot" style="top:20px;right:20px;background:rgba(168,85,247,0.7);box-shadow:0 0 8px rgba(168,85,247,0.9);"></div>
+    <div class="corner-dot" style="bottom:20px;left:20px;background:rgba(168,85,247,0.7);box-shadow:0 0 8px rgba(168,85,247,0.9);"></div>
+    <div class="corner-dot" style="bottom:20px;right:20px;"></div>
+
+    <!-- Initials -->
+    <div class="initials-ring mb-5">K&amp;S</div>
+
+    <!-- Names -->
+    <h1 class="title text-4xl sm:text-5xl mb-1">Kathiravan</h1>
+    <div class="heartbeat" style="font-size:2rem;margin:6px 0;">❤️</div>
+    <h1 class="title text-4xl sm:text-5xl mb-5">Sathiya Priya</h1>
+
+    <!-- Divider -->
+    <div class="divider mb-5">
+      <div class="divider-line"></div>
+      <div class="divider-diamond"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- Subtitle -->
+    <p class="subtitle mb-1">Will you be mine forever?</p>
+    <p style="font-size:0.75rem;color:rgba(255,255,255,0.28);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:1.5rem;">
+      Your heart already knows the answer 🌹
+    </p>
+
+    <!-- Couple row -->
+    <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:1.6rem;font-size:1.5rem;">
+      <span>🧑</span>
+      <span style="font-size:1rem;color:rgba(244,63,94,0.6);">——</span>
+      <span class="heartbeat" style="font-size:1.3rem;">💖</span>
+      <span style="font-size:1rem;color:rgba(244,63,94,0.6);">——</span>
+      <span>👩</span>
+    </div>
+
+    <!-- YES -->
+    <button class="btn-yes" id="btnYes" onclick="handleYes()">
+      ✨ Yes, forever &amp; always! 💕
+    </button>
+
+    <!-- NO zone: button hovers here, then flees -->
+    <div id="noZone"></div>
+
+    <!-- Divider 2 -->
+    <div class="divider mt-6 mb-4">
+      <div class="divider-line"></div>
+      <div class="divider-diamond" style="background:#a855f7;box-shadow:0 0 8px rgba(168,85,247,0.9);"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- Share -->
+    <button class="btn-share" onclick="handleShare()">Share 💌 with your love</button>
+
+    <!-- Quote -->
+    <p style="margin-top:1.4rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.8rem;color:rgba(255,255,255,0.2);letter-spacing:0.04em;">
+      "You are my today and all of my tomorrows."
+    </p>
+  </div>
+
+</div>
+
+<!-- NO button (fixed position, moves away from mouse) -->
+<button class="btn-no" id="btnNo">❌ No, never</button>
+
+<!-- Success -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="card-strip"></div>
+    <div class="corner-dot" style="top:20px;left:20px;"></div>
+    <div class="corner-dot" style="top:20px;right:20px;background:rgba(168,85,247,0.7);box-shadow:0 0 8px rgba(168,85,247,0.9);"></div>
+    <div class="corner-dot" style="bottom:20px;left:20px;background:rgba(168,85,247,0.7);box-shadow:0 0 8px rgba(168,85,247,0.9);"></div>
+    <div class="corner-dot" style="bottom:20px;right:20px;"></div>
+    <div class="pop-in" style="font-size:4rem;margin-bottom:1rem;">😍</div>
+    <h2 class="success-title pop-in" style="animation-delay:0.12s;">Yay! I knew it!</h2>
+    <div class="pop-in" style="animation-delay:0.2s;font-size:2rem;margin:0.5rem 0;">❤️💕❤️</div>
+    <p class="pop-in" style="animation-delay:0.28s;color:rgba(253,164,175,0.82);font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;margin-bottom:0.4rem;">
+      You made me the happiest person alive!
+    </p>
+    <p class="pop-in" style="animation-delay:0.36s;color:rgba(255,255,255,0.28);font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:1.5rem;">
+      This is just the beginning of our forever 🌹
+    </p>
+    <div class="pop-in" style="animation-delay:0.44s;font-size:2.4rem;">🧑❤️👩</div>
+    <button onclick="document.getElementById('successOverlay').classList.remove('visible')"
+      style="margin-top:1.5rem;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);
+             color:rgba(255,255,255,0.45);padding:0.5rem 1.5rem;border-radius:9999px;
+             font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:0.05em;">
+      ✨ Close
+    </button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Link copied! Send it to your love ❤️</div>
+
+<script>
+/* ── Stars ── */
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 130; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const sz = 0.7 + Math.random() * 2.2;
+  s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation-duration:${1.5+Math.random()*3}s;animation-delay:${Math.random()*4}s;`;
+  starsEl.appendChild(s);
+}
+
+/* ── Floating hearts ── */
+const HEARTS = ['❤️','💕','💗','💓','💖','💝','🌹','✨','💞','🌸','🌷'];
+const heartBg = document.getElementById('heartBg');
+function spawnHeart(fast) {
+  const el = document.createElement('div');
+  el.className = 'heart-particle';
+  el.textContent = HEARTS[Math.floor(Math.random() * HEARTS.length)];
+  const sz = 0.8 + Math.random() * 1.5;
+  el.style.fontSize = sz + 'rem';
+  el.style.left = Math.random() * 100 + 'vw';
+  const dur = fast ? (3 + Math.random() * 4) : (10 + Math.random() * 10);
+  el.style.animationDuration = dur + 's';
+  el.style.animationDelay = fast ? '0s' : (Math.random() * 4 + 's');
+  heartBg.appendChild(el);
+  setTimeout(() => el.remove(), (dur + 5) * 1000);
+}
+for (let i = 0; i < 20; i++) setTimeout(() => spawnHeart(false), i * 380);
+setInterval(() => spawnHeart(false), 950);
+
+/* ── NO Button: proximity escape ── */
+const btnNo  = document.getElementById('btnNo');
+const noZone = document.getElementById('noZone');
+let noX = 0, noY = 0;
+let escapeCount = 0;
+let ready = false;
+
+function snapToZone() {
+  const r  = noZone.getBoundingClientRect();
+  const bw = btnNo.offsetWidth  || 148;
+  const bh = btnNo.offsetHeight || 52;
+  noX = r.left + (r.width  - bw) / 2;
+  noY = r.top  + window.scrollY + (r.height - bh) / 2;
+  btnNo.style.transition = 'none';
+  btnNo.style.left = noX + 'px';
+  btnNo.style.top  = noY + 'px';
+  ready = true;
+}
+window.addEventListener('load',   snapToZone);
+window.addEventListener('resize', snapToZone);
+
+document.addEventListener('mousemove', (e) => {
+  if (!ready) return;
+  const bw = btnNo.offsetWidth;
+  const bh = btnNo.offsetHeight;
+  const cx = noX + bw / 2;  // button center x
+  const cy = noY + bh / 2;  // button center y (viewport-relative not needed, we use scrollY offset below)
+  const btnCY_vp = noY - window.scrollY + bh / 2; // viewport-relative Y of button center
+
+  const dx = e.clientX - cx;
+  const dy = e.clientY - btnCY_vp;
+  const dist = Math.hypot(dx, dy);
+
+  // Trigger radius shrinks after first 3 escapes (gets sneakier)
+  const triggerR = Math.max(55, 140 - escapeCount * 9);
+
+  if (dist < triggerR) {
+    escapeCount++;
+    const margin = 16;
+    const maxX = window.innerWidth  - bw - margin;
+    const maxY = window.innerHeight - bh - margin + window.scrollY;
+
+    let newX, newY, tries = 0;
+    do {
+      // Flee in opposite direction with random arc
+      const angle = Math.atan2(-dy, -dx) + (Math.random() - 0.5) * Math.PI * 0.9;
+      const force = 170 + Math.random() * 200 + escapeCount * 18;
+      newX = Math.max(margin, Math.min(maxX, cx + Math.cos(angle) * force - bw / 2));
+      newY = Math.max(margin + window.scrollY, Math.min(maxY, (noY + bh / 2) + Math.sin(angle) * force - bh / 2));
+      tries++;
+    } while (tries < 10 && Math.hypot(newX - noX, newY - noY) < 80);
+
+    const spd = Math.max(0.04, 0.26 - escapeCount * 0.016);
+    btnNo.style.transition = `left ${spd}s cubic-bezier(.34,1.56,.64,1), top ${spd}s cubic-bezier(.34,1.56,.64,1)`;
+    btnNo.style.left = newX + 'px';
+    btnNo.style.top  = newY + 'px';
+    noX = newX;
+    noY = newY;
+
+    // Sparkle at escape origin
+    spawnSparkle(e.clientX, e.clientY);
+  }
+});
+
+// Touch support
+document.addEventListener('touchmove', (e) => {
+  const t = e.touches[0];
+  document.dispatchEvent(new MouseEvent('mousemove', { clientX: t.clientX, clientY: t.clientY }));
+}, { passive: true });
+
+/* ── Sparkle ── */
+const SPARKS = ['✨','💨','😅','🏃','😂','👻'];
+function spawnSparkle(x, y) {
+  const el = document.createElement('div');
+  el.className = 'sparkle';
+  el.textContent = SPARKS[Math.floor(Math.random() * SPARKS.length)];
+  el.style.left = (x - 14) + 'px';
+  el.style.top  = (y - 14 + window.scrollY) + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 950);
+}
+
+/* ── YES ── */
+function handleYes() {
+  launchConfetti();
+  for (let i = 0; i < 45; i++) setTimeout(() => spawnHeart(true), i * 55);
+  setTimeout(() => document.getElementById('successOverlay').classList.add('visible'), 280);
+}
+
+/* ── Confetti ── */
+function launchConfetti() {
+  const colors = ['#f43f5e','#fda4af','#a855f7','#c084fc','#fb923c','#facc15','#34d399','#60a5fa','#f472b6'];
+  for (let i = 0; i < 130; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.left = (5 + Math.random() * 90) + 'vw';
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
+      const w = 6 + Math.random() * 11;
+      el.style.width  = w + 'px';
+      el.style.height = (w * (0.4 + Math.random() * 1.1)) + 'px';
+      el.style.borderRadius = Math.random() > 0.4 ? '50%' : '2px';
+      const dur = 1.8 + Math.random() * 2.2;
+      el.style.animationDuration = dur + 's';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), dur * 1000 + 100);
+    }, i * 20);
+  }
+}
+
+/* ── Share ── */
+function handleShare() {
+  const data = { title: 'Kathiravan ❤️ Sathiya Priya', text: 'Will you be mine forever? 💕', url: window.location.href };
+  if (navigator.share) { navigator.share(data).catch(() => {}); return; }
+  const fallback = () => {
+    const ta = document.createElement('textarea');
+    ta.value = window.location.href;
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); ta.remove(); showToast();
+  };
+  navigator.clipboard ? navigator.clipboard.writeText(window.location.href).then(showToast).catch(fallback) : fallback();
+}
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3200);
+}
+</script>
+</body>
+</html>
